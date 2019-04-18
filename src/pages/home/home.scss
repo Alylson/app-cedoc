@@ -1,0 +1,32 @@
+page-home {
+
+  ion-content{
+    //background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+    background-color: rgb(244, 244, 244) !important;
+  }
+
+  ion-header{
+    background: linear-gradient(to top, #4481eb 0%, #04befe 100%) !important;
+  }
+
+  .news{
+    ion-note{
+      font-size: 11px !important;
+      margin-right: 17px !important;
+      margin-top: 20px;
+      float: right;
+    }
+    ion-card-header{
+      font-weight: bold !important;
+    }
+    ion-card-content{
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+      padding: 0px 0px 10px 0px !important;
+      margin: 0px 17px 0px 17px !important;
+      p {
+        font-size: 13px !important;
+      }
+    }
+  }
+
+}

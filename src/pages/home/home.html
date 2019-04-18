@@ -1,0 +1,98 @@
+<ion-content (ionScroll)="onScroll($event)">
+
+  <div id="dynamicHeader" class="header-bar">
+    <button color="dark" ion-button icon-only menuToggle clear>
+      <ion-icon name='menu'></ion-icon>
+    </button>
+    <hr/>
+  </div>
+
+  <div class="empty-fill">
+  </div>
+
+  <ion-card *ngFor="let item of timeline">
+
+    <div class="news" *ngIf="item.n_pktipo == 1">
+
+      <img src="{{ item.noticia.c_thumbnail }}" (click)="abrirDetalhesNoticia(item.noticia)">
+
+      <ion-note (click)="abrirDetalhesNoticia(item.noticia)">
+        {{ utils.formatDataPostagem(item.noticia.n_datapost) }} atrás
+      </ion-note>
+      <ion-card-header (click)="abrirDetalhesNoticia(item.noticia)">
+        {{ item.noticia.c_titulo }}
+      </ion-card-header>
+
+      <ion-card-content (click)="abrirDetalhesNoticia(item.noticia)">
+        <p>{{ item.noticia.c_texto }}</p>
+      </ion-card-content>
+
+      <div class="user-action">
+        <button ion-button icon-left clear>
+          <ion-icon name="thumbs-up"></ion-icon>
+          {{ item.noticia.n_curtidas }}
+        </button>
+        <button text-capitalize ion-button icon-left clear>
+          <ion-icon name="text"></ion-icon>
+          0
+        </button>
+        <button class="share-button" ion-button icon-only item-end clear>
+          <ion-icon name="md-share"></ion-icon>
+        </button>
+      </div>
+
+    </div>
+    <div class="livros" *ngIf="item.n_pktipo == 2">
+
+      <ion-item (click)="abrirDetalhesLivro(item.entidade)">
+        <ion-avatar item-start>
+          <img src="{{ item.entidade.c_thumbnail }}">
+        </ion-avatar>
+        <h2>{{ item.entidade.c_nome }}</h2>
+        <ion-note>
+          {{ item.entidade.c_autor }}
+        </ion-note>
+      </ion-item>
+
+      <ion-row (click)="abrirDetalhesLivro(item.entidade)">
+        <ion-col>
+          <ion-note>
+            <ion-icon name="book"></ion-icon>
+          </ion-note>
+          <ion-note color="{{ item.entidade.c_displocal == 'true' ? 'secondary':'danger' }}">
+            <ion-icon name="{{ item.entidade.c_displocal == 'true' ? 'checkmark-circle':'close-circle' }}"></ion-icon>
+          </ion-note>
+          <ion-note *ngIf="item.entidade.c_dispebook == 'true'">
+            <ion-icon name="cloud-done"></ion-icon>
+          </ion-note>
+          <ion-note *ngIf="item.entidade.c_dispebook == 'true'">
+            <ion-icon name="download"></ion-icon>
+          </ion-note>
+          <ion-note class="publish-time">
+            {{ utils.formatDataPostagem(item.entidade.n_datapost) }} atrás
+          </ion-note>
+        </ion-col>
+      </ion-row>
+
+      <div class="user-action">
+        <button ion-button icon-left clear>
+          <ion-icon name="thumbs-up"></ion-icon>
+          {{ item.entidade.n_curtidas }}
+        </button>
+        <button text-capitalize ion-button icon-left clear>
+          <ion-icon name="text"></ion-icon>
+          0
+        </button>
+        <button class="share-button" ion-button icon-only item-end clear>
+          <ion-icon name="md-share"></ion-icon>
+        </button>
+        <button class="share-button" ion-button icon-only clear (click)="utils.toggleFavorito(item.entidade.n_pkent)">
+          <ion-icon *ngIf="utils.favoritesCache != null && utils.favoritesCache.indexOf(item.entidade.n_pkent) == -1" name="ios-star-outline"></ion-icon>
+          <ion-icon color="primary" *ngIf="utils.favoritesCache != null && utils.favoritesCache.indexOf(item.entidade.n_pkent) != -1" name="ios-star"></ion-icon>
+        </button>
+      </div>
+
+    </div>
+  </ion-card>
+
+</ion-content>
